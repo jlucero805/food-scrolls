@@ -1,12 +1,15 @@
+import Discover from "@/components/Discover";
 import { prisma } from "@/db/client";
 import { getSession } from "@auth0/nextjs-auth0";
 
-export default async function Home() {
+export default async function Application() {
 	const session = await getSession();
 
 	const user = await prisma.user.findUnique({
 		where: { email: session!.user.email },
 	});
+
+	console.log(user);
 
 	if (!user) {
 		try {
@@ -25,8 +28,6 @@ export default async function Home() {
 	}
 
 	return (
-		<div>
-			hey is here
-		</div>
+		<Discover />
 	);
 }

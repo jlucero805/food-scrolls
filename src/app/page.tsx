@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getSession();
 
   if (session?.user) {
-    redirect("/home");
+    redirect("/Application/home");
   }
 
   return (

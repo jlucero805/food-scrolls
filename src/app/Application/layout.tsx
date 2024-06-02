@@ -2,7 +2,6 @@ import ButtonLink from "@/components/ButtonLink";
 import Menu from "@/components/Menu";
 import { getSession } from "@auth0/nextjs-auth0";
 import Image from "next/image";
-import { useState } from "react";
 
 export default async function Layout({
 	children,

@@ -13,7 +13,31 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   email String @unique
+  // food-scrolls
   scrolls Scroll[]
+  likes Like[]
+  // Finance
+  expenses Expense[]
+  tags Tag[]
+}
+
+model Expense {
+  id Int @id @default(autoincrement())
+  name String
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  tags Tag[]
+  amount Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id Int @id @default(autoincrement())
+  user User  @relation(fields: [userId], references: [id])
+  userId Int
+  expense Expense @relation(fields: [expenseId], references: [id])
+  expenseId Int
 }
 
 model Scroll {
@@ -22,6 +46,15 @@ model Scroll {
   user User @relation(fields: [userId], references: [id])
   userId Int
   steps Step[]
+  likes Like[]
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  scroll Scroll @relation(fields: [scrollId], references: [id])
+  scrollId Int
 }
 
 model Step {
@@ -30,4 +63,13 @@ model Step {
   title String
   scroll Scroll @relation(fields: [scrollId], references: [id])
   scrollId Int
+  todos Todo[]
+}
+
+model Todo {
+  id Int @id @default(autoincrement())
+  index Int
+  content String
+  step Step @relation(fields: [stepId], references: [id])
+  stepId Int
 }
